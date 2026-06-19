@@ -16,6 +16,7 @@ import {
   CogIcon,
   ArrowLeftIcon,
   ArrowDownTrayIcon,
+  ArrowsPointingOutIcon,
 } from "@heroicons/react/20/solid";
 import { Settings as SettingsType } from "@/gotypes";
 import { useNavigate } from "@tanstack/react-router";
@@ -560,6 +561,36 @@ export default function Settings() {
                         ]}
                       />
                     </div>
+                  </div>
+                </div>
+              </Field>
+            </div>
+          </div>
+
+          {/* Appearance */}
+          <div className="overflow-hidden rounded-xl bg-white dark:bg-neutral-800">
+            <div className="space-y-4 p-4">
+              {/* Full Width Output */}
+              <Field>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start space-x-3 flex-1">
+                    <ArrowsPointingOutIcon className="mt-1 h-5 w-5 flex-shrink-0 text-black dark:text-neutral-100" />
+                    <div>
+                      <Label>Full width output</Label>
+                      <Description>
+                        {settings.FullWidthOutput
+                          ? "Chat output spans the full window width."
+                          : "Chat output is constrained to a centered column."}
+                      </Description>
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <Switch
+                      checked={settings.FullWidthOutput}
+                      onChange={(checked) =>
+                        handleChange("FullWidthOutput", checked)
+                      }
+                    />
                   </div>
                 </div>
               </Field>

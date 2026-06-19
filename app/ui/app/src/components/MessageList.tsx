@@ -3,6 +3,7 @@ import React from "react";
 import Message from "./Message";
 import Downloading from "./Downloading";
 import { ErrorMessage } from "./ErrorMessage";
+import { useSettings } from "@/hooks/useSettings";
 
 export default function MessageList({
   messages,
@@ -25,6 +26,7 @@ export default function MessageList({
   error?: ErrorEvent | null;
   browserToolResult?: any;
 }) {
+  const { settings } = useSettings();
   const [showDots, setShowDots] = React.useState(false);
   const isDownloadingModel = downloadProgress && !downloadProgress.done;
   const shouldShowDownload = messages.length > 0;
@@ -84,7 +86,9 @@ export default function MessageList({
 
   return (
     <div
-      className="mx-auto flex max-w-[768px] flex-1 flex-col px-6 pb-12 select-text"
+      className={`flex flex-1 flex-col px-6 pb-12 select-text ${
+        settings.fullWidthOutput ? "w-full" : "mx-auto max-w-[768px]"
+      }`}
       data-role="message-list"
     >
       {messages.map((message, idx) => {

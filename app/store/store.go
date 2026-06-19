@@ -172,6 +172,9 @@ type Settings struct {
 
 	// AutoUpdateEnabled indicates if automatic updates should be downloaded
 	AutoUpdateEnabled bool
+
+	// FullWidthOutput indicates if the chat output should span the full window width
+	FullWidthOutput bool
 }
 
 type Store struct {

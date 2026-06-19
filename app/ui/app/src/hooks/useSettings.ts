@@ -12,6 +12,7 @@ interface SettingsState {
   lastHomeView: string;
   thinkEnabled: boolean;
   thinkLevel: string;
+  fullWidthOutput: boolean;
 }
 
 // Type for partial settings updates
@@ -53,6 +54,7 @@ export function useSettings() {
       selectedModel: settingsData?.settings?.SelectedModel ?? "",
       sidebarOpen: settingsData?.settings?.SidebarOpen ?? false,
       lastHomeView: settingsData?.settings?.LastHomeView ?? "launch",
+      fullWidthOutput: settingsData?.settings?.FullWidthOutput ?? false,
     }),
     [settingsData?.settings],
   );
