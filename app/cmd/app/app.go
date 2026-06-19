@@ -234,6 +234,16 @@ func main() {
 	toolRegistry := tools.NewRegistry()
 	slog.Info("initialized tools registry", "tool_count", len(toolRegistry.List()))
 
+	// Restore the persisted working directory so it's reflected in the UI and
+	// applied to tool operations across restarts.
+	var workingDir string
+	if persisted, err := st.Settings(); err != nil {
+		slog.Warn("failed to load persisted working directory", "error", err)
+	} else if persisted.WorkingDir != "" {
+		workingDir = persisted.WorkingDir
+		toolRegistry.SetWorkingDir(workingDir)
+	}
+
 	// ctx is the app-level context that will be used to stop the app
 	ctx, cancel := context.WithCancel(context.Background())
 
@@ -265,6 +275,7 @@ func main() {
 		},
 		Store:        st,
 		ToolRegistry: toolRegistry,
+		WorkingDir:   workingDir,
 		Dev:          devMode,
 		Logger:       slog.Default(),
 		Updater:      upd,

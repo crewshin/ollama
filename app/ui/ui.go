@@ -1473,6 +1473,16 @@ func (s *Server) settings(w http.ResponseWriter, r *http.Request) error {
 		return fmt.Errorf("failed to save settings: %w", err)
 	}
 
+	// Update the runtime working directory and propagate it to the tool
+	// registry so agent/tool operations run in the selected directory.
+	// getSettings echoes back s.WorkingDir, so this also keeps the UI in sync.
+	if old.WorkingDir != settings.WorkingDir {
+		s.WorkingDir = settings.WorkingDir
+		if s.ToolRegistry != nil {
+			s.ToolRegistry.SetWorkingDir(settings.WorkingDir)
+		}
+	}
+
 	// Handle auto-update toggle changes
 	if old.AutoUpdateEnabled != settings.AutoUpdateEnabled {
 		if !settings.AutoUpdateEnabled {
