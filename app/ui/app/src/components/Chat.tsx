@@ -30,7 +30,13 @@ import { useUser } from "@/hooks/useUser";
 import { useHasVisionCapability } from "@/hooks/useModelCapabilities";
 import { Message } from "@/gotypes";
 
-export default function Chat({ chatId }: { chatId: string }) {
+export default function Chat({
+  chatId,
+  showWorkingDir = false,
+}: {
+  chatId: string;
+  showWorkingDir?: boolean;
+}) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const chatQuery = useChat(chatId === "new" ? "" : chatId);
@@ -214,6 +220,7 @@ export default function Chat({ chatId }: { chatId: string }) {
               isDownloadingModel={isDownloadingModel}
               isDisabled={isDisabled}
               onFilesReceived={handleFilesReceived}
+              showWorkingDir={showWorkingDir}
             />
           </div>
         </div>
@@ -287,6 +294,7 @@ export default function Chat({ chatId }: { chatId: string }) {
               isDisabled={isDisabled}
               isDownloadingModel={isDownloadingModel}
               onFilesReceived={handleFilesReceived}
+              showWorkingDir={showWorkingDir}
             />
           </div>
         </main>

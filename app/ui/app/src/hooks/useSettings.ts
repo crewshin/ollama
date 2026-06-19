@@ -12,6 +12,7 @@ interface SettingsState {
   lastHomeView: string;
   thinkEnabled: boolean;
   thinkLevel: string;
+  workingDir: string;
 }
 
 // Type for partial settings updates
@@ -23,6 +24,7 @@ type SettingsUpdate = Partial<{
   SelectedModel: string;
   SidebarOpen: boolean;
   LastHomeView: string;
+  WorkingDir: string;
 }>;
 
 export function useSettings() {
@@ -53,6 +55,7 @@ export function useSettings() {
       selectedModel: settingsData?.settings?.SelectedModel ?? "",
       sidebarOpen: settingsData?.settings?.SidebarOpen ?? false,
       lastHomeView: settingsData?.settings?.LastHomeView ?? "launch",
+      workingDir: settingsData?.settings?.WorkingDir ?? "",
     }),
     [settingsData?.settings],
   );

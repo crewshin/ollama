@@ -1,6 +1,7 @@
 import Logo from "@/components/Logo";
 import { ModelPicker } from "@/components/ModelPicker";
 import { WebSearchButton } from "@/components/WebSearchButton";
+import { WorkingDirButton } from "@/components/WorkingDirButton";
 import { ImageThumbnail } from "@/components/ImageThumbnail";
 import { isImageFile } from "@/utils/imageUtils";
 import {
@@ -66,6 +67,9 @@ interface ChatFormProps {
   chatId?: string;
   isDownloadingModel?: boolean;
   isDisabled?: boolean;
+  // When true, shows the working-directory selector in the bottom-left
+  // (used by the Code workspace).
+  showWorkingDir?: boolean;
   // Editing props - when provided, ChatForm enters edit mode
   editingMessage?: {
     content: string;
@@ -88,6 +92,7 @@ function ChatForm({
   chatId = "new",
   isDownloadingModel = false,
   isDisabled = false,
+  showWorkingDir = false,
   editingMessage,
   onCancelEdit,
   onFilesReceived,
@@ -874,6 +879,13 @@ function ChatForm({
 
         {/* Controls */}
         <div className="flex w-full items-center justify-end gap-2 px-3 pt-2">
+          {/* Working directory selector - pinned to the bottom left */}
+          {showWorkingDir && (
+            <div className="mr-auto min-w-0">
+              <WorkingDirButton isDisabled={isDisabled} />
+            </div>
+          )}
+
           {/* Tool buttons - animate from underneath model picker */}
           {!isDisabled && (
             <div className="flex-1 flex justify-end items-center gap-2">
